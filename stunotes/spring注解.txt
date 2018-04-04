@@ -1,2 +1,0 @@
-1、springmvc的controller取值方式
-	http://blog.csdn.net/u011410529/article/details/66974974
