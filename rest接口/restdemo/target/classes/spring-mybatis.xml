@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">	
+	<!-- 开启注解 -->
+	<context:annotation-config/>
+	<!-- 扫描包 -->
+	<context:component-scan base-package="demo">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!-- 引入配置文件信息 -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<!-- 数据源信息-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${db_username}" />
+		<property name="password" value="${db_password}" />
+	</bean>
+	<!-- sqlsessionfactory 创建数据库实体管理器工厂-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="demo.entity"></property>    
+        <!-- 自动扫描mapping.xml文件 -->    
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property> 
+	</bean>
+	<!-- 3. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory 配置接口扫描路径(动态代理)  -->    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">    
+        <property name="basePackage" value="demo.dao" />    
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>    
+    </bean>  
+</beans>

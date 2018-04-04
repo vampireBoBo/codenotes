@@ -1,0 +1,174 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com</groupId>
+  <artifactId>restdemo</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>restdemo Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <!-- 版本号 -->
+  <properties>
+  	<spring.version>4.3.8.RELEASE</spring.version>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <!-- 项目依赖 -->
+  <dependencies>
+    <!-- spring相关包 -->
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-core</artifactId>
+    	<version>4.3.8.RELEASE</version>
+    </dependency> 
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-aop</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-context</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-beans</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId> 
+    	<artifactId>spring-web</artifactId> 
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId> 
+    	<artifactId>spring-webmvc</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-jdbc</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-tx</artifactId>
+    	<version>${spring.version}</version>
+    </dependency>
+    
+    <!--aop相关包  --> 
+    <dependency>
+    	<groupId>org.aspectj</groupId>
+    	<artifactId>aspectjrt</artifactId>
+    	<version>1.8.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.aspectj</groupId>
+    	<artifactId>aspectjweaver</artifactId>
+    	<version>1.8.0</version>
+    </dependency>
+    
+    <!-- mybatis -->
+    <dependency>
+    	<groupId>org.mybatis</groupId>
+    	<artifactId>mybatis</artifactId>
+    	<version>3.3.0</version>
+    </dependency>
+    
+    <!--junit测试包  -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- mysql --> 
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.26</version>
+    </dependency>
+    
+    <!--数据库连接池 -->
+    <dependency>
+    	<groupId>com.alibaba</groupId>
+    	<artifactId>druid</artifactId>
+    	<version>1.0.20</version>
+    </dependency>
+    
+    <!--spring集成mybatis  -->
+    <dependency>
+    	<groupId>org.mybatis</groupId>
+    	<artifactId>mybatis-spring</artifactId>
+    	<version>1.2.3</version>
+    </dependency>
+    
+    <!-- json格式jar包 -->
+    <!-- Rest Dependencies -->
+	<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.8.0</version>
+	</dependency>
+	<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.0</version> 
+	</dependency>
+     <!--jstl标签库  --> 
+    <dependency> 
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>jstl</artifactId>
+    	<version>1.2</version>
+    </dependency> 
+    
+    <!-- fastJson -->
+   <dependency>
+   		<groupId>com.alibaba</groupId>
+   		<artifactId>fastjson</artifactId>
+   		<version>1.2.31</version>
+   </dependency>
+  </dependencies> 
+  <build>
+    <finalName>restdemo</finalName>
+    <plugins>
+    	<plugin>
+   			<groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                 <source>1.8</source>
+                 <target>1.8</target>
+             </configuration>
+    	</plugin>
+    	<!-- 利用mybatis_generator反向生成实体信息 -->
+    	<plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.2</version>
+            <configuration>
+                <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                <verbose>true</verbose>
+                <overwrite>true</overwrite>
+             </configuration>
+             <!-- <executions> 
+                <execution>
+                    <id>Generate MyBatis Artifacts</id>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+             </executions> -->
+             <dependencies>
+                <dependency>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-core</artifactId>
+                    <version>1.3.2</version>
+                </dependency>
+             </dependencies>
+            </plugin>
+    </plugins>
+  </build>
+</project>

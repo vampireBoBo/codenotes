@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demo.dao.IOrgDao" >
+  <resultMap id="BaseResultMap" type="demo.entity.Org" >
+    <id column="ono" property="ono" jdbcType="VARCHAR" />
+    <result column="oname" property="oname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ono, oname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from org
+    where ono = #{ono,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from org
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from org
+    where ono = #{ono,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="demo.entity.Org" >
+    insert into org (ono, oname)
+    values (#{ono,jdbcType=VARCHAR}, #{oname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="demo.entity.Org" >
+    insert into org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ono != null" >
+        ono,
+      </if>
+      <if test="oname != null" >
+        oname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ono != null" >
+        #{ono,jdbcType=VARCHAR},
+      </if>
+      <if test="oname != null" >
+        #{oname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="demo.entity.Org" >
+    update org
+    <set >
+      <if test="oname != null" >
+        oname = #{oname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ono = #{ono,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="demo.entity.Org" >
+    update org
+    set oname = #{oname,jdbcType=VARCHAR}
+    where ono = #{ono,jdbcType=VARCHAR}
+  </update>
+</mapper>
