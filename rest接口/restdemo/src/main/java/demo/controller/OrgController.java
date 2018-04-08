@@ -2,6 +2,7 @@ package demo.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.tools.javac.util.List;
 
 import demo.entity.Org;
 import demo.service.IOrgService;
 
 /**
  * org资源的controller
+ * 该类 没有返回视图  故使用了@RestController  只进行数据的获取
  */
 @RestController
 @RequestMapping("org")
@@ -36,9 +37,8 @@ public class OrgController {
 	 * @param record
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/",method=RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public Map addOrg(Org record){
+	public String addOrg(Org record){
 		Map<String, String> result=new HashMap<String,String>();
 		try {
 			if(orgSer.insert(record)>0){
@@ -49,7 +49,8 @@ public class OrgController {
 		} catch (Exception e) {
 			result.replace("result", "请求异常！");
 		}
-		return result;
+		JSON json=(JSON) JSON.toJSON(result);
+		return json.toString();
 	}
 	/**
 	 * 
@@ -69,9 +70,10 @@ public class OrgController {
 	 * @return List<Org> 
 	 */
 	@RequestMapping(value="/",method=RequestMethod.GET,produces="application/json;charset=utf-8")
-	public @ResponseBody String getOrgAll(){
+	public String getOrgAll(){
 		Map<String, List<Org>> maps=new HashMap<>();
-		maps.put("orgLists", (List<Org>) orgSer.selectAll());
+		List<Org> lists=orgSer.selectAll();
+		maps.put("orgLists", lists);
 		JSON json=(JSON)JSON.toJSON(maps);
 		return json.toString();
 	}
