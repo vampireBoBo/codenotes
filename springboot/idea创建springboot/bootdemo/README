@@ -1,0 +1,15 @@
+1.创建项目
+2.添加webapp 将此项目设置成web 并设置web默认；路径为src/main/webapp 设置成功以后 webapp新建时会出现jsp选项
+3.配置application.xml 配置视图解析  即jsp页面的存放路径
+4.pom.xml添加对jsp的支持
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+    </dependency>
+5.其他新建或者需要扫描的包 需要存放在与main方法同级的包及一下路径 否则扫描不到
+6.访问路径 http://localhost:8080/controllerURL  然后返回数据信息 或跳转到指定的视图页面
