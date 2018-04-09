@@ -1,0 +1,215 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com</groupId>
+  <artifactId>blockChainDemo</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>blockChainDemo</name>
+  <url>http://maven.apache.org</url>
+  <!--项目参数配置 -->
+  <properties>
+  	<!-- spring的版本号 -->
+  	<spring.version>4.3.7.RELEASE</spring.version>
+  	<mybatis.version>3.2.1</mybatis.version>
+    <slf4j.version>1.6.6</slf4j.version>
+    <jstl.version>1.2</jstl.version> 
+    <mysql.version>5.1.35</mysql.version>
+    <commons.codec.version>1.9</commons.codec.version>
+    <spark.version>2.6.0</spark.version>
+    <gson.version>2.8.2</gson.version>
+  </properties>
+  <!--项目依赖  -->
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- spring依赖 -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <!-- spring webmvc -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <!-- mysql驱动包 -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+    </dependency>
+     <!-- alibaba data source 相关jar包-->
+     <dependency>
+         <groupId>com.alibaba</groupId>
+         <artifactId>druid</artifactId>
+         <version>0.2.23</version>
+     </dependency>
+     <!-- alibaba fastjson 格式化对 -->  
+        <dependency>  
+            <groupId>com.alibaba</groupId>  
+            <artifactId>fastjson</artifactId>  
+            <version>1.1.41</version>  
+        </dependency> 
+    <!-- mybatis -->
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+    </dependency>
+    <!-- mybatis/spring包 -->
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>1.2.0</version>
+    </dependency>
+  	<!-- 添加servlet3.0核心包 -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>javax.servlet.jsp-api</artifactId>
+        <version>2.3.2-b01</version>
+    </dependency>
+    <!-- jstl -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+    <!-- 超小型web框架 Spark-web Framework是一个基于jetty的超小型框架，我们用它来写http访问的请求处理。 -->
+    <dependency>
+        <groupId>com.sparkjava</groupId>
+        <artifactId>spark-core</artifactId>
+        <version>${spark.version}</version>
+    </dependency>
+    <!-- 这个包包换很多的算法  四类加密：BinaryEncoders、DigestEncoders、LanguageEncoders、NetworkEncoders。-->
+    <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons.codec.version}</version>
+     </dependency>
+     <!-- 谷歌的json包 -->
+     <dependency>
+         <groupId>com.google.code.gson</groupId>
+         <artifactId>gson</artifactId>
+         <version>2.8.2</version>
+     </dependency>
+  </dependencies>
+  <!--动态获取配置文件  -->
+  <profiles>
+  	<!-- 研发环境的配置文件 -->
+  	<profile>
+  		<id>dev</id>
+  		<properties>
+  			<env>dev</env>
+  		</properties>
+  		<!-- 将该配置文件自动激活  即默认情况下调用该配置文件 -->
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  	</profile>
+  	<!-- 生产环境的配置文件 -->
+  	<profile>
+  		<id>pro</id>
+  		<properties>
+  			<env>pro</env>
+  		</properties>
+  	</profile>
+  </profiles>
+  <!--项目构造信息 -->
+  <build>
+    <finalName>blockChainDemo</finalName>
+    <!-- 指定配置文件的位置 -->
+    <filters>
+    	<filter>profiles/${env}.properties</filter>
+    </filters>
+    <!-- 指定扫描资源 即进行key替换的资源位置 -->
+    <resources>
+    	<resource>
+    		<directory>src/main/resources</directory>
+    		<includes>
+    			<include>spring-mybatis.xml</include>
+    		</includes>
+    		<!-- 表示开启替换功能 -->
+    		<filtering>true</filtering>
+    	</resource>
+    </resources>
+    <!-- 本项目的一些插件-->
+    <plugins>
+    	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>1.7</source>
+				<target>1.7</target>
+				<compilerVersion>1.7</compilerVersion>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-deploy-plugin</artifactId>
+			<version>2.7</version>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-install-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>
+		</plugin>
+    </plugins>
+  </build>
+</project>
